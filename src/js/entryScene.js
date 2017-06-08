@@ -10,39 +10,29 @@ class EntryScene extends BaseScene_1.BaseScene {
         console.dir("EntryScene.initstage() is TBI now.");
         let starContainer = new createjs.Container();
         this.stage.addChild(starContainer);
-        let sun = new createjs.Shape();
-        sun.graphics.beginFill("#f25424").drawCircle(this.stage.canvas.width / 2, this.stage.canvas.height / 2, 24);
-        //sun.regX = 12;
-        //sun.regY = 12;
-        starContainer.addChild(sun);
-        let earth = new createjs.Shape();
-        earth.graphics.beginFill("#2eadf7").drawCircle((this.stage.canvas.width / 2) + 150, this.stage.canvas.height / 2, 12);
-        earth.regX = this.stage.canvas.width / 2;
-        earth.regY = this.stage.canvas.width / 2;
-        starContainer.addChild(earth);
-        let moon = new createjs.Shape();
-        moon.graphics.beginFill("#fbff93").drawCircle(this.stage.canvas.width / 2 + 200, this.stage.canvas.height / 2, 6);
-        //moon.regX = 3;
-        //moon.regY = 3;
-        starContainer.addChild(moon);
-        starContainer.regX = this.stage.canvas.width / 2;
-        starContainer.regY = this.stage.canvas.heigth / 2;
+        ["#f25424", "#2eadf7", "#fbff93"].forEach(function (element, index) {
+            console.dir(index);
+            [];
+            var graphics = new createjs.Graphics().beginFill(element).drawCircle(this.stage.canvas.width / 2 + index * 200 - (index * index * 50), this.stage.canvas.height / 2, 24 / (index + 1));
+            this.stage.getChildAt(0).addChild(new createjs.Shape(graphics));
+        }.bind(this));
         let textContainer = new createjs.Container();
         this.stage.addChild(textContainer);
         let text1 = new createjs.Text("EntryScene is TBI now.", "24px sans-serif", "#EDE1E2");
-        textContainer.addChild(text1).set({ graphics: text1, x: this.stage.canvas.width / 2, y: this.stage.canvas.height / 2, alpha: 0.5 });
+        textContainer.addChild(text1).set({ graphics: text1, x: this.stage.canvas.width / 1.7, y: this.stage.canvas.height / 1.1, alpha: 0.5 });
         this.stage.update();
         return this;
     }
     update() {
         console.dir("EntryScene.update() is TBI now.");
-        /*
-        for (let i=0; i<this.stage.getChildByName("starContainer").numChildren; i++){
-            this.stage.getChildByName("starContainer").getChildIndex(i).rotation+=1;
-
+        let starContainer = this.stage.getChildAt(0);
+        for (let i = 0; i < 3; i++) {
+            let star = starContainer.getChildAt(i);
+            if (i == 1) {
+                star.x += 1;
+                star.y += 1;
+            }
         }
-        //this.stage.getChildAt(0).getChildAt(1).rotation += 1;
-        */
         this.stage.update();
         return this;
     }
